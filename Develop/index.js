@@ -29,7 +29,7 @@ const questions = (answers) =>
 
 
 const promptUser = () => {
-    return inquirer
+inquirer
     .prompt([
         {
             name: 'Title',
@@ -37,45 +37,45 @@ const promptUser = () => {
             message: 'What is the title of your project?',
         },
         {
-            name: 'input',
-            type: 'Description',
+            name: 'Description',
+            type: 'input',
             message: 'Please describe the project ...',
         },
         {
-            name: 'input',
-            type: 'Table',
+            name: 'Table',
+            type: 'input',
             message: 'What sections would you like included in the Table of Contents?',
         },
         {
-            name: 'input',
-            type: 'Installation',
+            name: 'Installation',
+            type: 'input',
             message: 'What installation instructions would you like included?',
         },
         {
-            name: 'input',
-            type: 'Usage',
+            name: 'Usage',
+            type: 'input',
             message: 'Please describe a use case for this application?',
         },
         {
-            name: 'input',
-            type: 'License',
+            name: 'License',
+            type: 'input',
             message: 'What license does this project have?',
         },
         {
-            name: 'input',
-            type: 'Contributing',
+            name: 'Contributing',
+            type: 'input',
             message: 'Please describe how you would like others to be able to contribute to this project ...',
         }, {
-            name: 'input',
-            type: 'Tests',
+            name: 'Test',
+            type: 'input',
             message: 'What tests were done for this project?',
         }, {
-            name: 'input',
-            type: 'Questions',
+            name: 'Questions',
+            type: 'input',
             message: 'Please describe how users can get in contact with you if they have questions ...',
         },
-    ]);
-
+    ])
+    
     .then((answers) => {
         console.log("hello" + answers.Title);
 
@@ -85,7 +85,7 @@ const promptUser = () => {
         fs.writeToFile('README.md', readmeGen, (err) =>
             err ? console.log(err) : console.log('Successfully Created README.md')
         );
-    });
+    })}
 
 // TODO: Create a function to initialize app
 function init() {
