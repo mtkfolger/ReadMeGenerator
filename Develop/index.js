@@ -3,14 +3,15 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 // TODO: Create an array of questions for user input
-const questions = (answers) =>
-`#${answers.Title}
+const questions = (answers) => {
+return `#${answers.Title}
 ---
+
 ##Description
-${answers.Description}
+>${answers.Description}
 
 ###Table of Contents 
-[Installation Instructions](#Installation)
+[Installation](#Installation)
 [Usage](#Usage)
 [License](#License)
 [Contribution Guidelines](#Contribution)
@@ -18,28 +19,35 @@ ${answers.Description}
 [Questions](#Questions)
 
 ###Installation Instructions <a name="Installation"></a>
-${answers.Installation}
+>${answers.Installation}
 
 ###Usage <a name="Usage"></a>
-${answers.Usage}
+>${answers.Usage}
 
 ###License <a name="License"></a>
-${answers.License}
+>This project is convered under the ${answers.License} License.
 
 
 ###Contribution Guidelines <a name="Contribution"></a>
-${answers.Contributing}
+>${answers.Contributing}
 
 ###Tests <a name="Tests"></a>
-${answers.Tests}
+>${answers.Tests}
 
 ###Questions <a name="Questions"></a>
-${answers.Questions}
+>Have questions? Feel free to reach out to me, by visiting me on GitHub at:
+>
+>${answers.Questions}
+>
+>or by contacting me via e-mail, at:
+>
+>${answers.Questions2}
 
 ---
 *This readme template is © Michael Folger - 2021*
 `;
 
+}
 
 
 
@@ -57,19 +65,6 @@ const promptUser = () => {
                 message: 'Please describe the project ...',
             },
             {
-                name: 'Table',
-                type: 'checkbox',
-                message: 'What sections would you like included in the Table of Contents?',
-                choices: [
-                    {name: 'Installation', short: 'Installation', value:1, checked: true},
-                    {name: 'Usage', short: 'Usage', value:2, checked: true},
-                    {name: 'License', short: 'License', value:3, checked: true},
-                    {name: 'Contirbution Guidelines', short: 'Contribution Guidelines', value:4, checked: true},
-                    {name: 'Tests', short: 'Tests', value:5, checked: true},
-                    {name: 'Questions', short: 'Questions', value:6, checked: true},                    
-                ]
-            },
-            {
                 name: 'Installation',
                 type: 'input',
                 message: 'What installation instructions would you like included?',
@@ -81,8 +76,12 @@ const promptUser = () => {
             },
             {
                 name: 'License',
-                type: 'input',
+                type: 'list',
                 message: 'What license does this project have?',
+                choices: ['Apache License 2.0 <br><br>![Apache Logo](https://badgen.net/badge/Licencse/Apache/green?icon=github)',
+                 'GNU General Public License v3.0 <br><br>![GNU Logo](https://badgen.net/badge/Licencse/GNU/yellow?icon=github)',
+                 'MIT License <br><br>![Apache Logo](https://badgen.net/badge/Licencse/MIT/red?icon=github)',
+                 'Mozilla Public License 2.0 <br><br>![Apache Logo](https://badgen.net/badge/Licencse/Mozilla/orange?icon=github)']
             },
             {
                 name: 'Contributing',
@@ -95,12 +94,18 @@ const promptUser = () => {
             }, {
                 name: 'Questions',
                 type: 'input',
-                message: 'Please describe how users can get in contact with you if they have questions ...',
+                message: 'Please enter your GitHub account URL, so that users can view your GitHub account ...',
+            },{
+                name: 'Questions2',
+                type: 'input',
+                message: 'Please enter your e-mail, so that users can contact you with questions ...',
             },
         ])
 
         .then((answers) => {
             const readmeGen = questions(answers);
+
+            console.log(readmeGen);
 
             // TODO: Create a function to write README file
             fs.writeFile('README.md', readmeGen, (err) =>
